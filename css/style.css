@@ -1,0 +1,18 @@
+:root{
+  --bg-color1: #1649e2;
+  --bg-color2: #1b1b1b;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-color1);
+  color: #fff;
+  line-height: 1.6;
+}
