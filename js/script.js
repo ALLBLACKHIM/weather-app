@@ -9,7 +9,7 @@ let cityInput = document.getElementById("city-input"),
   // Get theme switch
   themeSwitch = document.getElementById("theme-switch"),
   // OpenWeatherMap API key
-  api_key = "20b00c8da6591ccced954b3f98cc40ca",
+  api_key = "Your_API_Key",
   // Get current weather card
   currentWeatherCard = document.querySelectorAll(".weather-left .card")[0],
   // Get 7-day forecast card
