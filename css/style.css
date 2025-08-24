@@ -1,9 +1,22 @@
 :root{
-  --primary-color1: #F4F4F9;
-  --primary-color2: #e1e1e1;
+  --primary-color: #F4F4F9;
+  --primary-color1: #e1e1e1;
+  --primary-bg-g-color: linear-gradient(to top, #ff7e5f, #feb47b);
+  --primary-bg-color: #F8F9FA;
+  --primary-bg-color1: #F5F5DC;
+  --primary-ui-bg: rgba(255, 255, 255, 0.15);
   --primary-text: #333333;
-  --primary-accent: #007BFF;
+  --primary-text1: #fff;
+  --primary-text2: #0d2c4a;
+  --primary-text3: #5C4033;
+  --primary-accent: #2a6f97;
+  --primary-accent1: #E89F71;
+  --primary-accent2: #A4B494;
+  --primary-accent3: #6B8E23;
   --secondary-accent: #FFD700;
+  --secondary-accent1: #D4AF37;
+  --secondary-accent2: #a9d6e5;
+  --secondary-accent3: #4682B4;
 }
 
 *{
@@ -14,8 +27,8 @@
 
 body {
   min-height: 100vh;
-  background: var(--primary-color1);
-  color: var(--primary-text);
+  background: var(--primary-bg-color);
+  color: var(--primary-text3);
   line-height: 1.6;
   font-family: 'Poppins', sans-serif;
   padding: 0 15px;
@@ -24,7 +37,7 @@ body {
 .header{
   position: sticky;
   top: 0;
-  background: var(--primary-color1);
+  background: var(--primary-bg-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,7 +49,7 @@ body {
     padding: 12px;
     font-size: 16px;
     border-radius: 25px;
-    color: var(--primary-text);
+    color: var(--primary-text3);
     &:focus{
       outline: none;
     }
@@ -46,7 +59,7 @@ body {
     font-size: 16px;
     padding: 12px;
     border-radius: 25px;
-    background-color: var(--primary-accent);
+    background-color: var(--primary-accent1);
     cursor: pointer;
   }
   & #location-button{
@@ -54,7 +67,58 @@ body {
     font-size: 16px;
     padding: 12px;
     border-radius: 25px;
-    background-color: var(--secondary-accent);
+    background-color: var(--secondary-accent1);
     cursor: pointer;
+  }
+}
+
+.card{
+  background: var(--primary-bg-g-color);
+  background-color: var(--primary-ui-bg);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  & p{
+    font-size: 14px;
+    color: var(--primary-text3);
+  }
+  & h2{
+    font-size: 32px;
+    font-weight: 500;
+  }
+}
+
+.weather-data{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  & .weather-left{
+    grid-column: span 1;
+    & .current-weather{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & h2{
+        margin: 7px 0;
+      }
+      & p{
+        color: var(--primary-text1);
+      }
+    }
+    & .card-footer{
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    & .forecast-item{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      place-items: center;
+      margin: 15px;
+      & .icon-wrapper{
+        display: flex;
+        align-items: center;
+        
+      }
+    }
   }
 }
