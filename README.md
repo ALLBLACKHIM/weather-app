@@ -52,4 +52,4 @@ let api_key = "YOUR_API_KEY";
 
 ## Credits
 
-This project was created by [Luis P. Shinyala](https://github.com/your-username).
+This project was created by [Luis P. Shinyala](https://github.com/ALLBLACKHIM).
