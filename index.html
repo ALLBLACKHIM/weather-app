@@ -16,10 +16,16 @@
         <div class="header">
             <div class="h2">Weather Now</div>
             <div class="weather-input">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="theme-switch">
+                    <span class="slider"></span>
+                </label>
                 <input type="text" name="city" id="city-input" placeholder="Enter city name">
                 <button type="button" id="search-button"><i class="fas fa-search"></i>Search</button>
                 <button type="button" id="location-button"><i class="bx bx-target-lock"></i>Current Location</button>
             </div>
+        </div>
+        <div class="loading">
         </div>
         <div class="weather-data">
             <div class="weather-left">
