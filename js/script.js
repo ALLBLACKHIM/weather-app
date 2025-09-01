@@ -1,30 +1,30 @@
 // Get city input
-let cityInput = document.getElementById("city-input"),
+let cityInput = $("#city-input"),
   // Get search button
-  searchButton = document.getElementById("search-button"),
+  searchButton = $("#search-button"),
   // Get location button
-  locationButton = document.getElementById("location-button"),
+  locationButton = $("#location-button"),
   // Get loader element
-  loader = document.querySelector(".loading"),
+  loader = $(".loading"),
   // Get theme switch
-  themeSwitch = document.getElementById("theme-switch"),
+  themeSwitch = $("#theme-switch"),
   // OpenWeatherMap API key
   api_key = "Your_API_Key",
   // Get current weather card
-  currentWeatherCard = document.querySelectorAll(".weather-left .card")[0],
+  currentWeatherCard = $(".weather-left .card").eq(0),
   // Get 7-day forecast card
-  sevenDaysForecastCard = document.querySelector(".day-forecast"),
+  sevenDaysForecastCard = $(".day-forecast"),
   // Get air quality index card
-  aqiCard = document.querySelectorAll(".highlights .card")[0],
-  sunriseCard = document.querySelectorAll(".highlights .card")[1],
+  aqiCard = $(".highlights .card").eq(0),
+  sunriseCard = $(".highlights .card").eq(1),
   // Other weather details cards
-  humidityCard = document.getElementById("humidityValue"),
-  pressureCard = document.getElementById("pressureValue"),
-  visibilityCard = document.getElementById("visibilityValue"),
-  windSpeedCard = document.getElementById("windSpeedValue"),
-  feelsLikeCard = document.getElementById("feelsLikeValue"),
+  humidityCard = $("#humidityValue"),
+  pressureCard = $("#pressureValue"),
+  visibilityCard = $("#visibilityValue"),
+  windSpeedCard = $("#windSpeedValue"),
+  feelsLikeCard = $("#feelsLikeValue"),
   // Hourly forecast cards
-  hourlyForecastCards = document.querySelector(".hourly-forecast"),
+  hourlyForecastCards = $(".hourly-forecast"),
   // Air quality index list
   aqiList = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
 
@@ -55,26 +55,26 @@ function getWeatherDetails(name, lat, lon, country, state) {
     ];
 
   // Show loader
-  loader.classList.add("active");
+  loader.addClass("active");
 
   // Fetch data from all APIs simultaneously
-  Promise.all([
-    fetch(AQI_API_URL).then((res) => res.json()),
-    fetch(WEATHER_API_URL).then((res) => res.json()),
-    fetch(FORECAST_API_URL).then((res) => res.json()),
-  ])
-    .then(([aqiData, weatherData, forecastData]) => {
+  $.when(
+    $.ajax({ url: AQI_API_URL, method: "GET" }),
+    $.ajax({ url: WEATHER_API_URL, method: "GET" }),
+    $.ajax({ url: FORECAST_API_URL, method: "GET" })
+  )
+    .done(function (aqiData, weatherData, forecastData) {
       // Hide loader
-      loader.classList.remove("active");
+      loader.removeClass("active");
 
       // Update air quality index
       let { co, no, no2, o3, so2, pm2_5, pm10, nh3 } =
-        aqiData.list[0].components;
-      aqiCard.innerHTML = `
+        aqiData[0].list[0].components;
+      aqiCard.html(`
       <div class="card-head">
         <p>Air Quality Index</p>
-        <p class="air-index aqi-${aqiData.list[0].main.aqi}">${
-        aqiList[aqiData.list[0].main.aqi - 1]
+        <p class="air-index aqi-${aqiData[0].list[0].main.aqi}">${
+        aqiList[aqiData[0].list[0].main.aqi - 1]
       }</p>
       </div>
       <div class="air-indices">
@@ -112,20 +112,20 @@ function getWeatherDetails(name, lat, lon, country, state) {
             <h2>${o3}</h2>
           </div>
         </div>
-      </div>`;
+      </div>`);
 
       // Update current weather
       let date = new Date();
-      currentWeatherCard.innerHTML = `
+      currentWeatherCard.html(`
         <div class="current-weather">
           <div class="details">
             <p>Now</p>
-            <h2>${(weatherData.main.temp - 273.15).toFixed(2)}&deg;C</h2>
-            <p>${weatherData.weather[0].description}</p>
+            <h2>${(weatherData[0].main.temp - 273.15).toFixed(2)}&deg;C</h2>
+            <p>${weatherData[0].weather[0].description}</p>
           </div>
           <div class="weather-icon">
             <img src="https://openweathermap.org/img/wn/${
-              weatherData.weather[0].icon
+              weatherData[0].weather[0].icon
             }@2x.png" alt="">
           </div>
         </div>
@@ -138,11 +138,11 @@ function getWeatherDetails(name, lat, lon, country, state) {
       } ${date.getFullYear()}</p>
           <p><i class="fa-solid fa-location-dot"></i>${name}, ${country}</p>
         </div>
-    `;
+    `);
 
       // Update sunrise and sunset
-      let { sunrise, sunset } = weatherData.sys,
-        { timezone } = weatherData,
+      let { sunrise, sunset } = weatherData[0].sys,
+        { timezone } = weatherData[0],
         riseTime = moment
           .utc(sunrise, "X")
           .add(timezone, "seconds")
@@ -151,7 +151,7 @@ function getWeatherDetails(name, lat, lon, country, state) {
           .utc(sunset, "X")
           .add(timezone, "seconds")
           .format("hh:mm A");
-      sunriseCard.innerHTML = `
+      sunriseCard.html(`
       <div class="card-head">
         <p>Sunrise & Sunset</p>
       </div>
@@ -175,30 +175,30 @@ function getWeatherDetails(name, lat, lon, country, state) {
           </div>
         </div>
       </div>
-      `;
+      `);
 
       // Update other weather details
-      humidityCard.innerHTML = `${weatherData.main.humidity}%`;
-      pressureCard.innerHTML = `${weatherData.main.pressure} hPa`;
-      visibilityCard.innerHTML = `${(weatherData.visibility / 1000).toFixed(
+      humidityCard.html(`${weatherData[0].main.humidity}%`);
+      pressureCard.html(`${weatherData[0].main.pressure} hPa`);
+      visibilityCard.html(`${(weatherData[0].visibility / 1000).toFixed(
         2
-      )} km`;
-      windSpeedCard.innerHTML = `${(weatherData.wind.speed * 3.6).toFixed(
+      )} km`);
+      windSpeedCard.html(`${(weatherData[0].wind.speed * 3.6).toFixed(
         2
-      )} km/h`;
-      feelsLikeCard.innerHTML = `${(
-        weatherData.main.feels_like - 273.15
-      ).toFixed(2)}°C`;
+      )} km/h`);
+      feelsLikeCard.html(`${(
+        weatherData[0].main.feels_like - 273.15
+      ).toFixed(2)}°C`);
 
       // Update hourly forecast
-      let hourlyForecast = forecastData.list;
-      hourlyForecastCards.innerHTML = "";
+      let hourlyForecast = forecastData[0].list;
+      hourlyForecastCards.html("");
       hourlyForecast.slice(0, 6).forEach((forecast) => {
         let date = new Date(forecast.dt_txt);
         let hours = date.getHours();
         let period = hours >= 12 ? "PM" : "AM";
         hours = hours % 12 || 12; // Convert to 12-hour format
-        hourlyForecastCards.innerHTML += `
+        hourlyForecastCards.append(`
           <div class="card">
             <p>${hours} ${period}</p>
             <i><img src="https://openweathermap.org/img/wn/${
@@ -206,21 +206,21 @@ function getWeatherDetails(name, lat, lon, country, state) {
             }@2x.png" alt=""></i>
             <h2>${(forecast.main.temp - 273.15).toFixed(2)}&deg;C</h2>
           </div>
-        `;
+        `);
       });
 
       // Update daily forecast
       let uniqueForecastDays = [];
-      let sevenDaysForecast = forecastData.list.filter((forecast) => {
+      let sevenDaysForecast = forecastData[0].list.filter((forecast) => {
         let forecastDate = new Date(forecast.dt_txt).getDate();
         if (!uniqueForecastDays.includes(forecastDate)) {
           return uniqueForecastDays.push(forecastDate);
         }
       });
-      sevenDaysForecastCard.innerHTML = "";
+      sevenDaysForecastCard.html("");
       sevenDaysForecast.forEach((forecast) => {
         let date = new Date(forecast.dt_txt);
-        sevenDaysForecastCard.innerHTML += `
+        sevenDaysForecastCard.append(`
           <div class="forecast-item">
             <div class="icon-wrapper">
               <img src="https://openweathermap.org/img/wn/${
@@ -231,43 +231,45 @@ function getWeatherDetails(name, lat, lon, country, state) {
             <p>${date.getDate()} ${months[date.getMonth()]}</p>
             <p>${days[date.getDay()]}</p>
           </div>
-        `;
+        `);
       });
     })
-    .catch(() => {
+    .fail(() => {
       // Hide loader on error
-      loader.classList.remove("active");
+      loader.removeClass("active");
       alert("Failed to fetch weather details");
     });
 }
 
 // Get city coordinates
 function getCityCoordinates() {
-  let cityName = cityInput.value.trim();
-  cityInput.value = "";
+  let cityName = cityInput.val().trim();
+  cityInput.val("");
   if (!cityName) {
     return;
   }
   let GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${api_key}`;
   // Show loader
-  loader.classList.add("active");
-  fetch(GEOCODING_API_URL)
-    .then((res) => res.json())
-    .then((data) => {
+  loader.addClass("active");
+  $.ajax({
+    url: GEOCODING_API_URL,
+    method: "GET",
+    success: function (data) {
       let { name, lat, lon, country, state } = data[0];
       getWeatherDetails(name, lat, lon, country, state);
-    })
-    .catch(() => {
+    },
+    error: function () {
       // Hide loader on error
-      loader.classList.remove("active");
+      loader.removeClass("active");
       alert(`failed to fetch coordinates for ${cityName}`);
-    });
+    },
+  });
 }
 
 // Get user coordinates
 function getUserCoordinates() {
   // Show loader
-  loader.classList.add("active");
+  loader.addClass("active");
   if (navigator.geolocation) {
     // Get current position
     navigator.geolocation.getCurrentPosition(
@@ -276,21 +278,23 @@ function getUserCoordinates() {
         let REVERSE_GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${api_key}`;
 
         // Fetch location details
-        fetch(REVERSE_GEOCODING_API_URL)
-          .then((res) => res.json())
-          .then((data) => {
+        $.ajax({
+          url: REVERSE_GEOCODING_API_URL,
+          method: "GET",
+          success: function (data) {
             let { name, lat, lon, country, state } = data[0];
             getWeatherDetails(name, lat, lon, country, state);
-          })
-          .catch(() => {
+          },
+          error: function () {
             // Hide loader on error
-            loader.classList.remove("active");
+            loader.removeClass("active");
             alert("Failed to fetch your location");
-          });
+          },
+        });
       },
       (error) => {
         // Hide loader on error
-        loader.classList.remove("active");
+        loader.removeClass("active");
         if (error.code === error.PERMISSION_DENIED) {
           alert(
             "Geolocation permission denied. Please allow access to your location."
@@ -302,7 +306,7 @@ function getUserCoordinates() {
     );
   } else {
     // Hide loader on error
-    loader.classList.remove("active");
+    loader.removeClass("active");
     alert("Geolocation is not supported by this browser.");
   }
 }
@@ -310,36 +314,36 @@ function getUserCoordinates() {
 // Apply theme from local storage
 function applyTheme(theme) {
     if (theme === "dark") {
-        document.body.classList.add("dark-mode");
-        themeSwitch.checked = true;
+        $("body").addClass("dark-mode");
+        themeSwitch.prop("checked", true);
     } else {
-        document.body.classList.remove("dark-mode");
-        themeSwitch.checked = false;
+        $("body").removeClass("dark-mode");
+        themeSwitch.prop("checked", false);
     }
 }
 
 // Event listener for theme switch
-themeSwitch.addEventListener("change", (e) => {
+themeSwitch.on("change", (e) => {
     const theme = e.target.checked ? "dark" : "light";
     localStorage.setItem("theme", theme);
     applyTheme(theme);
 });
 
 // Check local storage for theme on page load
-window.addEventListener("load", () => {
+$(window).on("load", () => {
     const savedTheme = localStorage.getItem("theme") || "light";
     applyTheme(savedTheme);
     getUserCoordinates();
 });
 
 // Get city coordinates
-searchButton.addEventListener("click", getCityCoordinates);
+searchButton.on("click", getCityCoordinates);
 
 // Get user coordinates
-locationButton.addEventListener("click", getUserCoordinates);
+locationButton.on("click", getUserCoordinates);
 
 // Get city coordinates with enter key
-cityInput.addEventListener("keypress", (e) => {
+cityInput.on("keypress", (e) => {
   if (e.key === "Enter") {
     getCityCoordinates();
   }
