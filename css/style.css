@@ -1,18 +1,20 @@
 :root {
+  /* Sunset Glow - Light Mode */
+  --primary-bg-color: #fff8e1; /* Light Cream */
+  --primary-color: #ffffff; /* White */
+  --primary-text: #4e4e4e; /* Dark Gray */
+  --primary-accent: #ff8c00; /* Dark Orange */
+
   /* primary color */
-  --primary-color: #f4f4f9;
   --primary-color1: #e1e1e1;
   --primary-bg-g-color: linear-gradient(to top, #ff7e5f, #feb47b);
-  --primary-bg-color: #e6e9ec;
   --primary-bg-color1: #f5f5dc;
   --primary-ui-bg: rgba(255, 255, 255, 0.15);
   /* primary text color */
-  --primary-text: #333333;
   --primary-text1: #fff;
   --primary-text2: #0d2c4a;
   --primary-text3: #5c4033;
   /* primary accent color */
-  --primary-accent: #2a6f97;
   --primary-accent1: #e89f71;
   --primary-accent2: #a4b494;
   --primary-accent3: #6b8e23;
@@ -92,18 +94,16 @@
 body {
   min-height: 100vh;
   background: var(--primary-bg-color);
-  color: var(--primary-text3);
+  color: var(--primary-text);
   line-height: 1.6;
   font-family: "Poppins", sans-serif;
   padding: 0 15px;
-  perspective: 1px;
-  transform-style: preserve-3d;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 .container {
-    transform: translateZ(-1px) scale(2);
+    position: relative;
 }
 
 hr {
@@ -113,12 +113,16 @@ hr {
 .header {
   position: sticky;
   top: 0;
-  background: var(--primary-bg-color);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  padding: 15px 0;
+  padding: 15px;
   z-index: 10;
   & .h2 {
     font-size: 24px;
@@ -188,11 +192,10 @@ hr {
 }
 
 body.dark-mode .card {
-    box-shadow: 10px 10px 20px #1a1a1a, -10px -10px 20px #2c2c2c;
-}
-
-body.dark-mode .card:hover {
-    box-shadow: 15px 15px 30px #1a1a1a, -15px -15px 30px #2c2c2c;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .weather-data {
@@ -634,18 +637,49 @@ body.dark-mode .snow::before {
     }
 }
 
-/* Dark Mode Styles */
+body.clear-sky-bg {
+    background: linear-gradient(to top, #a1c4fd, #c2e9fb);
+    animation: slow-pan 30s linear infinite alternate;
+}
+
+body.cloudy-bg {
+    background: linear-gradient(to top, #bdc3c7, #2c3e50);
+    animation: slow-pan 30s linear infinite alternate;
+}
+
+body.rainy-bg {
+    background: #2c3e50;
+}
+
+body.rainy-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(transparent, rgba(0,0,0,0.2) 50%, transparent),
+        linear-gradient(90deg, transparent, rgba(0,0,0,0.2) 50%, transparent);
+    background-size: 5px 5px, 5px 5px;
+    animation: rain-fall 0.5s linear infinite;
+}
+
+@keyframes slow-pan {
+    from { background-position: 0% 0%; }
+    to { background-position: 100% 100%; }
+}
+
+@keyframes rain-fall {
+    from { background-position: 0% 0%; }
+    to { background-position: 0% 100%; }
+}
 body.dark-mode {
-  --primary-bg-color: #1e1e1e;
-  --primary-color: #2d2d2d;
-  --primary-color1: #3c3c3c;
-  --primary-bg-g-color: linear-gradient(to top, #2a2a2a, #3a3a3a);
-  --primary-ui-bg: rgba(0, 0, 0, 0.15);
-  --primary-text: #f1f1f1;
-  --primary-text1: #f1f1f1;
-  --primary-text2: #f1f1f1;
-  --primary-text3: #f1f1f1;
-  --primary-accent: #5fa8d3;
+  /* Sunset Glow - Dark Mode */
+  --primary-bg-color: #2c1e38; /* Dark Purple */
+  --primary-color: #1e1428; /* Darker Purple */
+  --primary-text: #ffffff; /* White */
+  --primary-accent: #ffaf42; /* Lighter Orange */
 }
 
 /* Toggle Switch Styles */
