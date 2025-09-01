@@ -10,39 +10,6 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-        createChat({
-            webhookUrl: 'http://localhost:5678/webhook/4a421fcc-9baa-4fda-8a30-43b936dff1a0/chat',
-            webhookConfig: {
-                method: 'POST',
-                headers: {}
-            },
-            target: '#n8n-chat',
-            mode: 'window',
-            chatInputKey: 'chatInput',
-            chatSessionKey: 'sessionId',
-            loadPreviousSession: true,
-            metadata: {},
-            showWelcomeScreen: false,
-            defaultLanguage: 'en',
-            initialMessages: [
-                'Hi there! 👋',
-                'My name is Nathan. How can I assist you today?'
-            ],
-            i18n: {
-                en: {
-                    title: 'Hi there! 👋',
-                    subtitle: "Start a chat. We're here to help you 24/7.",
-                    footer: '',
-                    getStarted: 'New Conversation',
-                    inputPlaceholder: 'Type your question..',
-                },
-            },
-            enableStreaming: true,
-        });
-    </script>
 </head>
 
 <body>
@@ -216,89 +183,91 @@
                         </div>
                     </div>
                     <div class="card">
-                        <div class="card-head">
-                            <p>Humidity</p>
+                            <div class="card-head">
+                                <p>Humidity</p>
+                            </div>
+                            <div class="card-item">
+                                <i class="fa-solid fa-droplet fa-2x"></i>
+                                <h2 id="humidityValue">____%</h2>
+                            </div>
                         </div>
-                        <div class="card-item">
-                            <i class="fa-solid fa-droplet fa-2x"></i>
-                            <h2 id="humidityValue">____%</h2>
+                        <div class="card">
+                            <div class="card-head">
+                                <p>Pressure</p>
+                            </div>
+                            <div class="card-item">
+                                <i class="fa-solid fa-gauge-high fa-2x"></i>
+                                <h2 id="pressureValue">____ hPa</h2>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <p>Visibility</p>
+                            </div>
+                            <div class="card-item">
+                                <i class="fa-solid fa-eye fa-2x"></i>
+                                <h2 id="visibilityValue">____ km</h2>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <p>Wind Speed</p>
+                            </div>
+                            <div class="card-item">
+                                <i class="fa-solid fa-location-arrow fa-2x"></i>
+                                <h2 id="windSpeedValue">____ m/s</h2>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <p>Feels Like</p>
+                            </div>
+                            <div class="card-item">
+                                <i class="fa-solid fa-temperature-low fa-2x"></i>
+                                <h2 id="feelsLikeValue">____&deg;C</h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <p>Pressure</p>
+                    <h2>Today at</h2>
+                    <div class="hourly-forecast">
+                        <div class="card">
+                            <p>12:00 AM</p>
+                            <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
+                            <h2>____&deg;C</h2>
                         </div>
-                        <div class="card-item">
-                            <i class="fa-solid fa-gauge-high fa-2x"></i>
-                            <h2 id="pressureValue">____ hPa</h2>
+                        <div class="card">
+                            <p>04:00 AM</p>
+                            <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
+                            <h2>____&deg;C</h2>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <p>Visibility</p>
+                        <div class="card">
+                            <p>08:00 AM</p>
+                            <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
+                            <h2>____&deg;C</h2>
                         </div>
-                        <div class="card-item">
-                            <i class="fa-solid fa-eye fa-2x"></i>
-                            <h2 id="visibilityValue">____ km</h2>
+                        <div class="card">
+                            <p>12:00 PM</p>
+                            <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
+                            <h2>____&deg;C</h2>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <p>Wind Speed</p>
+                        <div class="card">
+                            <p>04:00 PM</p>
+                            <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
+                            <h2>____&deg;C</h2>
                         </div>
-                        <div class="card-item">
-                            <i class="fa-solid fa-location-arrow fa-2x"></i>
-                            <h2 id="windSpeedValue">____ m/s</h2>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <p>Feels Like</p>
-                        </div>
-                        <div class="card-item">
-                            <i class="fa-solid fa-temperature-low fa-2x"></i>
-                            <h2 id="feelsLikeValue">____&deg;C</h2>
+                        <div class="card">
+                            <p>08:00 PM</p>
+                            <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
+                            <h2>____&deg;C</h2>
                         </div>
                     </div>
-                </div>
-                <h2>Today at</h2>
-                <div class="hourly-forecast">
-                    <div class="card">
-                        <p>12:00 AM</p>
-                        <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
-                        <h2>____&deg;C</h2>
-                    </div>
-                    <div class="card">
-                        <p>04:00 AM</p>
-                        <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
-                        <h2>____&deg;C</h2>
-                    </div>
-                    <div class="card">
-                        <p>08:00 AM</p>
-                        <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
-                        <h2>____&deg;C</h2>
-                    </div>
-                    <div class="card">
-                        <p>12:00 PM</p>
-                        <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
-                        <h2>____&deg;C</h2>
-                    </div>
-                    <div class="card">
-                        <p>04:00 PM</p>
-                        <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
-                        <h2>____&deg;C</h2>
-                    </div>
-                    <div class="card">
-                        <p>08:00 PM</p>
-                        <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="">
-                        <h2>____&deg;C</h2>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+    <div id="n8n-chat"></div>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
     <script src="js/script.js"></script>
+    <script type="module" src="js/chat.js"></script>
 </body>
 
 </html>

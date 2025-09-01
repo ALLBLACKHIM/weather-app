@@ -18,6 +18,7 @@ A simple and clean weather application that provides real-time weather informati
 - **Search by City:** Manually enter a city name to get weather updates.
 - **Current Location:** Use your device's GPS to get weather information for your current location.
 - **Dark Mode:** Toggle between light and dark themes for comfortable viewing.
+- **Chatbot:** An n8n powered chatbot that uses the OpenWeatherMap MCP server to provide a more interactive user experience.
 
 ## Technologies Used
 
@@ -28,6 +29,7 @@ A simple and clean weather application that provides real-time weather informati
 - [Moment.js](https://momentjs.com/)
 - [Font Awesome](https://fontawesome.com/)
 - [Boxicons](https://boxicons.com/)
+- [n8n](https://n8n.io/)
 
 ## How to Use
 
