@@ -121,8 +121,10 @@ hr {
     font-size: 16px;
     border-radius: 25px;
     color: var(--primary-text3);
+    transition: all 0.3s ease;
     &:focus {
       outline: none;
+      transform: scale(1.05);
     }
   }
   & #search-button {
@@ -132,6 +134,11 @@ hr {
     border-radius: 25px;
     background-color: var(--primary-accent1);
     cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+    }
   }
   & #location-button {
     border: none;
@@ -140,6 +147,11 @@ hr {
     border-radius: 25px;
     background-color: var(--secondary-accent1);
     cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+    }
   }
 }
 
@@ -149,6 +161,11 @@ hr {
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 15px;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
   & p {
     font-size: 14px;
     color: var(--primary-text3);
@@ -185,6 +202,11 @@ hr {
       grid-template-columns: repeat(3, 1fr);
       place-items: center;
       margin: 15px;
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+      }
       & .icon-wrapper {
         display: flex;
         align-items: center;
@@ -284,6 +306,11 @@ hr {
       column-gap: 10px;
       & .card {
         text-align: center;
+        transition: all 0.3s ease;
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
         & p {
           font-size: 14px;
           color: var(--primary-text3);
