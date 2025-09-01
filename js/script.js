@@ -64,6 +64,21 @@ function getWeatherDetails(name, lat, lon, country, state) {
     $.ajax({ url: FORECAST_API_URL, method: "GET" })
   )
     .done(function (aqiData, weatherData, forecastData) {
+      // Update loading animation
+      let weatherCondition = weatherData[0].weather[0].main.toLowerCase();
+      loader.removeClass("sunny cloudy rainy snowy"); // Remove existing classes
+      if (weatherCondition.includes("clear")) {
+        loader.addClass("sunny");
+      } else if (weatherCondition.includes("cloud")) {
+        loader.addClass("cloudy");
+      } else if (weatherCondition.includes("rain")) {
+        loader.addClass("rainy");
+      } else if (weatherCondition.includes("snow")) {
+        loader.addClass("snowy");
+      } else {
+        loader.addClass("cloudy"); // Default to cloudy
+      }
+
       // Hide loader
       loader.removeClass("active");
 
