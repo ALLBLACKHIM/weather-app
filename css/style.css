@@ -96,6 +96,14 @@ body {
   line-height: 1.6;
   font-family: "Poppins", sans-serif;
   padding: 0 15px;
+  perspective: 1px;
+  transform-style: preserve-3d;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.container {
+    transform: translateZ(-1px) scale(2);
 }
 
 hr {
@@ -111,6 +119,7 @@ hr {
   align-items: center;
   margin-bottom: 10px;
   padding: 15px 0;
+  z-index: 10;
   & .h2 {
     font-size: 24px;
   }
@@ -156,8 +165,10 @@ hr {
 }
 
 .card {
-  background: var(--primary-bg-g-color);
-  background-color: var(--primary-ui-bg);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 15px;
   border-radius: 15px;
   margin-bottom: 15px;
@@ -174,6 +185,14 @@ hr {
     font-size: 32px;
     font-weight: 500;
   }
+}
+
+body.dark-mode .card {
+    box-shadow: 10px 10px 20px #1a1a1a, -10px -10px 20px #2c2c2c;
+}
+
+body.dark-mode .card:hover {
+    box-shadow: 15px 15px 30px #1a1a1a, -15px -15px 30px #2c2c2c;
 }
 
 .weather-data {
